@@ -16,8 +16,11 @@ Import this dashboard: https://grafana.com/grafana/dashboards/1860 to grafana
 If you want to add more servers to prometheus, make these steps:
 
 Install node-exporter to each of these servers via these commands:
-git clone https://github.com/digitalstudium/grafana-docker-stack.git
+git clone https://github.com/circletes/grafana-docker.git
 docker stack deploy -c grafana-docker-stack/node-exporter.yml node-exporter
-Add these servers to /var/lib/docker/volumes/monitoring_prom-configs/_data/prometheus.yml file to - targets: ['node-exporter:9100'] list of - job_name: 'node-exporter' section, like - targets: ['node-exporter:9100', 'server1:9100', 'server2:9100', '...']
+
+Add these servers to /var/lib/docker/volumes/monitoring_prom-configs/_data/prometheus.yml file to 
+- targets: ['node-exporter:9100'] list of - job_name: 'node-exporter' section, like - targets: ['node-exporter:9100', 'server1:9100', 'server2:9100', '...']
+
 Reload prometheus config via this command:
 docker ps | grep prometheus | awk '{print $1}' | xargs docker kill -s SIGHUP
