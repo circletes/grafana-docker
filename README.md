@@ -4,10 +4,10 @@ docker stack deploy -c grafana-docker-stack/docker-compose.yml monitoring
 
 Add prometheus datasource with address http://prometheus:9090 to grafana
 Add these three lines to the bottom of /var/lib/docker/volumes/monitoring_prom-configs/_data/prometheus.yml file, to scrape_configs: section:
-  - job_name: 'node-exporter'
+- job_name: 'node-exporter'
 
-    static_configs:
-      - targets: ['node-exporter:9100']
+  static_configs:
+    - targets: ['node-exporter:9100']
       
       Reload prometheus config via this command:
 docker ps | grep prometheus | awk '{print $1}' | xargs docker kill -s SIGHUP
